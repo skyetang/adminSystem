@@ -32,6 +32,13 @@ const store = new Vuex.Store({
           reject(user.username);
         }
       });
+    },
+    logout({ commit }) {
+      return new Promise((resolve) => {
+        commit('SET_TOKEN', '');
+        Cookie.remove('Skye-Token');
+        resolve();
+      });
     }
   }
 });
