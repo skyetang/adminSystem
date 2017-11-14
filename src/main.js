@@ -10,6 +10,7 @@ Vue.use(iView);
 Vue.config.productionTip = false;
 
 const whiteList = ['/login'];
+
 router.beforeEach((to, from, next) => {
   if (store.state.user.token) {
     next();
