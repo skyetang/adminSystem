@@ -1,57 +1,33 @@
 <template>
 	<div class="login-container">
-	 <Form ref='loginForm' :rules="loginRules" :model='loginForm' class="card-box login-form">
-		<FormItem prop="username">
-			<Input type="text" v-model="loginForm.username" placeholder=username>
-				<Icon type="ios-person-outline" slot="prepend" ></Icon>
-			</Input>
-		</FormItem>
-		<FormItem prop="password">
-			<Input type="text" v-model="loginForm.password" placeholder=password>
-				<Icon type="ios-locked-outline" slot="prepend" ></Icon>
-			</Input>
-		</FormItem>
-		<FormItem>
-      <Button type="primary" @click="handleSubmit('loginForm')" long>登录</Button>
-    </FormItem>
-	 </Form>
+    <div class="login-form">
+      <components :is="currentComp"></components>
+      <div v-if="currentComp === 'Singin'" @click="currentComp='Register'">
+        <a href="javascript:;">注册</a>
+      </div>
+      <div v-else @click="currentComp='Singin'">
+        <a href="javascript:;">登录</a>
+      </div>
+    </div>
 	</div>
 </template>
 
 <script>
+  import Singin from './components/login/singin';
+  import Register from './components/login/register';
+
   export default {
+    components: {
+      Singin,
+      Register
+    },
     name: 'login',
     data() {
       return {
-        loginForm: {
-          username: '',
-          password: ''
-        },
-        loginRules: {
-          username: [
-            { required: true, message: '请输入用户名', trigger: 'blur' }
-          ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'blur' }
-          ]
-        }
+        currentComp: 'Singin'
       };
     },
     methods: {
-      handleSubmit(name) {
-        this.$refs[name].validate((valid) => {
-          if (valid) {
-            this.$store.dispatch('singin', this.loginForm).then(
-              () => {
-                this.$router.push({ path: '/' });
-              },
-              (res) => {
-                this.$Message.error(`${res}登录失败，请检测用户名或密码`);
-              }
-            );
-          }
-        });
-      }
     }
   };
 </script>

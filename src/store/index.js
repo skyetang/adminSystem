@@ -26,10 +26,10 @@ const store = new Vuex.Store({
     singin({ commit }, user) {
       return new Promise((resolve, reject) => {
         const param = {
-          name: user.username,
+          username: user.username,
           password: user.password
         };
-        axios.get('/api/login/test', qs.stringify(param)).then(
+        axios.post('/api/login/singin', qs.stringify(param)).then(
           (res) => {
             if (res) {
               commit('SET_NAME', user.name);
