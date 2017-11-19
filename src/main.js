@@ -1,9 +1,15 @@
 import Vue from 'vue';
+import axios from 'axios';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 import App from './App';
 import router from './router';
 import store from './store';
+
+axios.interceptors.request.use((config) => {
+  config.headers.access_token = localStorage.getItem('access_token') || '';
+  return config;
+});
 
 Vue.use(iView);
 

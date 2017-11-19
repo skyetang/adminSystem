@@ -8,11 +8,13 @@
       <div v-else @click="currentComp='Singin'">
         <a href="javascript:;">登录</a>
       </div>
+      <a href="javasript:;" @click="checkLogin">检测是否登录</a>
     </div>
 	</div>
 </template>
 
 <script>
+  import Axios from 'axios';
   import Singin from './components/login/singin';
   import Register from './components/login/register';
 
@@ -28,6 +30,12 @@
       };
     },
     methods: {
+      checkLogin() {
+        Axios.post('/api/login/check').then(
+          (res) => {
+            console.log(res);
+          });
+      }
     }
   };
 </script>

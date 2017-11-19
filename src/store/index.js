@@ -34,7 +34,8 @@ const store = new Vuex.Store({
             if (res) {
               commit('SET_NAME', user.name);
               commit('SET_TOKEN', 'admin');
-              Cookie.set('Skye-Token', 'admin');
+              localStorage.setItem('access_token', res.data.token);
+              Cookie.set('Skye-Token', res.token);
               resolve(user.username);
             } else {
               reject(user.username);
