@@ -21,62 +21,53 @@
   </Form>
 </template>
 <script>
-  import Axios from 'axios';
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import Axios from 'axios'
 
-  export default {
-    data() {
-      const validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          const pwd = this.registerForm.passwordCheck;
-          if (pwd !== '' && value !== pwd) {
-            callback(new Error('两次的密码不一致'));
-          }
-          callback();
+  @Component
+  export default class Register extends Vue {
+    registerForm = {
+      username: '',
+      password: '',
+      passwordCheck: ''
+    }
+    registerRules = {
+      username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+      password: [{ validator: this.validatePass, trigger: 'blur' }],
+      passwordCheck: [{ validator: this.validatePassCheck, trigger: 'blur' }]
+    }
+    handleSubmit(name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          Axios.post('/api/login/register', this.registerForm).then(
+            (res) => {
+              console.log(res)
+            })
         }
-      };
-      const validatePassCheck = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          const pwd = this.registerForm.password;
-          if (pwd !== '' && value !== pwd) {
-            callback(new Error('两次的密码不一致'));
-          }
-          callback();
+      })
+    }
+    validatePass(rule, value, callback) {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        const pwd = this.registerForm.passwordCheck
+        if (pwd !== '' && value !== pwd) {
+          callback(new Error('两次的密码不一致'))
         }
-      };
-      return {
-        registerForm: {
-          username: '',
-          password: '',
-          passwordCheck: ''
-        },
-        registerRules: {
-          username: [
-            { required: true, message: '请输入用户名', trigger: 'blur' }
-          ],
-          password: [
-            { validator: validatePass, trigger: 'blur' }
-          ],
-          passwordCheck: [
-            { validator: validatePassCheck, trigger: 'blur' }
-          ]
-        }
-      };
-    },
-    methods: {
-      handleSubmit(name) {
-        this.$refs[name].validate((valid) => {
-          if (valid) {
-            Axios.post('/api/login/register', this.registerForm).then(
-              (res) => {
-                console.log(res);
-              });
-          }
-        });
+        callback()
       }
     }
-  };
+    validatePassCheck(rule, value, callback) {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        const pwd = this.registerForm.password
+        if (pwd !== '' && value !== pwd) {
+          callback(new Error('两次的密码不一致'))
+        }
+        callback()
+      }
+    }
+  }
 </script>

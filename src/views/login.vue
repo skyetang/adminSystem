@@ -2,10 +2,10 @@
 	<div class="login-container">
     <div class="login-form">
       <components :is="currentComp"></components>
-      <div v-if="currentComp === 'Singin'" @click="currentComp='Register'">
+      <div v-if="currentComp === 'SingIn'" @click="currentComp='Register'">
         <a href="javascript:;">注册</a>
       </div>
-      <div v-else @click="currentComp='Singin'">
+      <div v-else @click="currentComp='SingIn'">
         <a href="javascript:;">登录</a>
       </div>
       <a href="javasript:;" @click="checkLogin">检测是否登录</a>
@@ -13,31 +13,28 @@
 	</div>
 </template>
 
-<script>
-  import Axios from 'axios';
-  import Singin from './components/login/singin';
-  import Register from './components/login/register';
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import Axios from 'axios'
+  import SingIn from './components/login/singin.vue'
+  import Register from './components/login/register.vue'
 
-  export default {
+  @Component({
     components: {
-      Singin,
+      SingIn,
       Register
-    },
-    name: 'login',
-    data() {
-      return {
-        currentComp: 'Singin'
-      };
-    },
-    methods: {
-      checkLogin() {
-        Axios.post('/api/login/check').then(
-          (res) => {
-            console.log(res);
-          });
-      }
     }
-  };
+  })
+  export default class App extends Vue {
+    currentComp = 'SingIn'
+    checkLogin() {
+      Axios.post('/api/login/check').then(
+        (res) => {
+          console.log(this.currentComp, res)
+        })
+    }
+  }
 </script>
 
 <style lang="less">
@@ -60,6 +57,5 @@
       color: #eeeeee;
       height: 47px;
     }
-
   }
 </style>

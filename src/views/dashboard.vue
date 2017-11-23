@@ -10,11 +10,11 @@
     methods: {
       logout() {
         this.$store.dispatch('logout').then(() => {
-          this.$router.push({ path: '/login' });
-        });
+          this.$router.push({ path: '/login' })
+        })
       }
     }
-  };
+  }
 </script>
 
 
