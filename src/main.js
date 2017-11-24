@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
-import App from './App.vue'
+import App from './App'
 import router from './router'
 import store from './store'
 
@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
 })
 
 /* eslint-disable no-new */
-const v = new Vue({
+new Vue({
   el: '#app',
   router,
   store,

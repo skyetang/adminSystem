@@ -17,32 +17,39 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-
-  @Component
-  export default class SingIn extends Vue {
-    loginForm = {
-      username: '',
-      password: ''
-    }
-    loginRules = {
-      username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-      password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
-    }
-    handleSubmit(name) {
-      this.$refs[name].validate((valid) => {
-        if (valid) {
-          this.$store.dispatch('singin', this.loginForm).then(
-            () => {
-              this.$router.push({ path: '/' })
-            },
-            (res) => {
-              this.$Message.error(`${res}登录失败，请检测用户名或密码`)
-            }
-          )
+  export default {
+    name: 'login',
+    data() {
+      return {
+        loginForm: {
+          username: '',
+          password: ''
+        },
+        loginRules: {
+          username: [
+            { required: true, message: '请输入用户名', trigger: 'blur' }
+          ],
+          password: [
+            { required: true, message: '请输入密码', trigger: 'blur' }
+          ]
         }
-      })
+      };
+    },
+    methods: {
+      handleSubmit(name) {
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            this.$store.dispatch('singin', this.loginForm).then(
+              () => {
+                this.$router.push({ path: '/' });
+              },
+              (res) => {
+                this.$Message.error(`${res}登录失败，请检测用户名或密码`);
+              }
+            );
+          }
+        });
+      }
     }
-  }
+  };
 </script>

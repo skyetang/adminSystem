@@ -36,7 +36,7 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     // 关闭语句末强制分号
-    //"semi": [0],
+    "semi": [0],
     // 关闭不能使用console.log打印
     "no-console": "off",
     //对象字面量项尾不能有逗号
@@ -48,7 +48,7 @@ module.exports = {
     //关闭换行风格检测
     'linebreak-style': 0,
     //关闭空的函数体
-    'no-empty': 0
+    'no-empty': 0,
   },
   // 启用全局变量
   "globals": {}
