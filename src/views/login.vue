@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <img :src="bg" class="login-bg">
     <div class="login-form">
       <components :is="currentComp"></components>
       <div v-if="currentComp === 'Singin'" @click="currentComp='Register'">
@@ -17,6 +18,10 @@
   import Axios from 'axios';
   import Singin from './components/login/singin';
   import Register from './components/login/register';
+  import bg1 from '../assets/images/bg1.jpeg';
+  import bg2 from '../assets/images/bg2.jpeg';
+  import bg3 from '../assets/images/bg3.jpg';
+  import bg4 from '../assets/images/bg4.jpeg';
 
   export default {
     components: {
@@ -26,8 +31,17 @@
     name: 'login',
     data() {
       return {
-        currentComp: 'Singin'
+        currentComp: 'Singin',
+        timer: null,
+        bg: bg1,
+        bg1,
+        bg2,
+        bg3,
+        bg4
       };
+    },
+    mounted() {
+      this.randomBg();
     },
     methods: {
       checkLogin() {
@@ -35,6 +49,23 @@
           (res) => {
             console.log(res);
           });
+      },
+      randomBg() {
+        const num = Math.floor(Math.random() * 6);
+        switch (num) {
+          case 1:
+            this.bg = this.bg1;
+            break;
+          case 2:
+            this.bg = this.bg2;
+            break;
+          case 3:
+            this.bg = this.bg3;
+            break;
+          default:
+            this.bg = this.bg4;
+            break;
+        }
       }
     }
   };
@@ -43,23 +74,34 @@
 <style lang="less">
   .login-container{
     height: 100vh;
-    background: url('../assets/black2.jpeg') center center;
-    background-size: cover;
+    overflow: hidden;
+  }
+  .login-bg{
+    width: 100%;
+    height: 100%;
+    animation: fadeInOut .5s ease;
+  }
+  @-webkit-keyframes fadeInOut {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
   }
   .login-form {
     position: absolute;
-    left: 0;
-    right: 0;
-    width: 400px;
-    padding: 35px 35px 15px 35px;
-    margin: 280px 120px auto auto;
+    top: 50%;
+    right: 160px;
+    width: 300px;
+    transform: translateY(-60%);
+    padding: 20px;
+    background-color: rgba(255,255,255,.99);
+    border-radius: 5px;
 
     input{
       background-color: rgba(255,255,255,.1);
       padding: 12px 5px 12px 15px;
-      color: #eeeeee;
-      height: 47px;
     }
-
   }
 </style>

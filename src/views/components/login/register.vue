@@ -1,17 +1,17 @@
 <template>
   <Form ref='registerForm' :rules="registerRules" :model='registerForm' >
     <FormItem prop="username">
-      <Input type="text" v-model="registerForm.username">
+      <Input type="text" placeholder="用户名" v-model="registerForm.username">
       <Icon type="ios-person-outline" slot="prepend" ></Icon>
       </Input>
     </FormItem>
     <FormItem prop="password">
-      <Input type="password" v-model="registerForm.password">
+      <Input type="password" placeholder="密码" v-model="registerForm.password">
       <Icon type="ios-locked-outline" slot="prepend" ></Icon>
       </Input>
     </FormItem>
     <FormItem prop="password">
-      <Input type="password" v-model="registerForm.passwordCheck">
+      <Input type="password" placeholder="密码" v-model="registerForm.passwordCheck">
       <Icon type="ios-locked-outline" slot="prepend" ></Icon>
       </Input>
     </FormItem>
