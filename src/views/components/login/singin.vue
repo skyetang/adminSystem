@@ -2,12 +2,12 @@
   <Form ref='loginForm' :rules="loginRules" :model='loginForm'>
     <FormItem prop="username">
       <Input type="text" v-model="loginForm.username">
-      <Icon type="ios-person-outline" slot="prepend" ></Icon>
+        <Icon type="ios-person-outline" slot="prepend" ></Icon>
       </Input>
     </FormItem>
     <FormItem prop="password">
       <Input type="password" v-model="loginForm.password">
-      <Icon type="ios-locked-outline" slot="prepend" ></Icon>
+        <Icon type="ios-locked-outline" slot="prepend" ></Icon>
       </Input>
     </FormItem>
     <FormItem>
@@ -41,7 +41,7 @@
           if (valid) {
             this.$store.dispatch('singin', this.loginForm).then(
               () => {
-                this.$router.push({ path: '/' });
+                this.$router.push({ path: '/dashboard' });
               },
               (res) => {
                 this.$Message.error(`${res}登录失败，请检测用户名或密码`);
