@@ -16,9 +16,12 @@
   </Form>
 </template>
 
-<script>
-  export default {
-    name: 'login',
+<script lang="ts">
+  import Vue from 'vue';
+  import Component from 'vue-class-component';
+
+  @Component
+  export default class Singin extends Vue{
     data() {
       return {
         loginForm: {
@@ -34,22 +37,20 @@
           ]
         }
       };
-    },
-    methods: {
-      handleSubmit(name) {
-        this.$refs[name].validate((valid) => {
-          if (valid) {
-            this.$store.dispatch('singin', this.loginForm).then(
-              () => {
-                this.$router.push({ path: '/dashboard' });
-              },
-              (res) => {
-                this.$Message.error(`${res}登录失败，请检测用户名或密码`);
-              }
-            );
-          }
-        });
-      }
+    }
+    handleSubmit(name:string):void {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.$store.dispatch('singin', this.loginForm).then(
+            () => {
+              this.$router.push({ path: '/dashboard' });
+            },
+            (res) => {
+              this.$Message.error(`${res}登录失败，请检测用户名或密码`);
+            }
+          );
+        }
+      });
     }
   };
 </script>
