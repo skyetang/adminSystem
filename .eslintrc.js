@@ -49,6 +49,8 @@ module.exports = {
     'linebreak-style': 0,
     //关闭空的函数体
     'no-empty': 0,
+    // 关闭 类方法必须要有this
+    "class-methods-use-this": [0]
   },
   // 启用全局变量
   "globals": {}

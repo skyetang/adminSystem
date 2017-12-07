@@ -1,6 +1,5 @@
 <template>
   <div class="login-container">
-    <img :src="bg" class="login-bg">
     <div class="login-form">
       <components :is="currentComp"></components>
       <div v-if="currentComp === 'Singin'" @click="currentComp='Register'">
@@ -14,61 +13,34 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+  import Vue from 'vue';
+  import Component from 'vue-class-component';
   import Axios from 'axios';
-  import Singin from './components/login/singin';
-  import Register from './components/login/register';
-  import bg1 from '../assets/images/bg1.jpeg';
-  import bg2 from '../assets/images/bg2.jpeg';
-  import bg3 from '../assets/images/bg3.jpg';
-  import bg4 from '../assets/images/bg4.jpeg';
+  import Singin from './components/login/singin.vue';
+  import Register from './components/login/register.vue';
 
-  export default {
+  @Component({
+    name: 'login',
     components: {
       Singin,
       Register
-    },
-    name: 'login',
+    }
+  })
+  export default class Login extends Vue {
     data() {
       return {
         currentComp: 'Singin',
         timer: null,
-        bg: bg1,
-        bg1,
-        bg2,
-        bg3,
-        bg4
       };
-    },
-    mounted() {
-      this.randomBg();
-    },
-    methods: {
-      checkLogin() {
-        Axios.post('/api/login/check').then(
-          (res) => {
-            console.log(res.data.message);
-          });
-      },
-      randomBg() {
-        const num = Math.floor(Math.random() * 6);
-        switch (num) {
-          case 1:
-            this.bg = this.bg1;
-            break;
-          case 2:
-            this.bg = this.bg2;
-            break;
-          case 3:
-            this.bg = this.bg3;
-            break;
-          default:
-            this.bg = this.bg4;
-            break;
-        }
-      }
     }
-  };
+    checkLogin():void {
+      Axios.post('/api/check').then(
+        (res) => {
+          console.log(res.data.message);
+        });
+    }
+  }
 </script>
 
 <style lang="less">
