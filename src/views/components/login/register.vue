@@ -70,7 +70,7 @@
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            Axios.post('/api/login/register', this.registerForm).then(
+            Axios.post('/api/register', this.registerForm).then(
               (res) => {
                 console.log(res);
               });
