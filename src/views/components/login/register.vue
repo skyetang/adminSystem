@@ -20,13 +20,10 @@
     </FormItem>
   </Form>
 </template>
-<script lang="ts">
-  import Vue from 'vue';
-  import Component from 'vue-class-component';
+<script>
   import Axios from 'axios';
 
-  @Component
-  export default class Register extends Vue{
+  export default {
     data() {
       const validatePass = (rule, value, callback) => {
         if (value === '') {
@@ -68,16 +65,18 @@
           ]
         }
       };
-    }
-    handleSubmit(name:string):void {
-      this.$refs[name].validate((valid) => {
-        if (valid) {
-          Axios.post('/api/login/register', this.registerForm).then(
-            (res) => {
-              console.log(res);
-            });
-        }
-      });
+    },
+    methods: {
+      handleSubmit(name) {
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            Axios.post('/api/login/register', this.registerForm).then(
+              (res) => {
+                console.log(res);
+              });
+          }
+        });
+      }
     }
   };
 </script>

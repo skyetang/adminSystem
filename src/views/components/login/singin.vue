@@ -2,12 +2,12 @@
   <Form ref='loginForm' :rules="loginRules" :model='loginForm'>
     <FormItem prop="username">
       <Input type="text" v-model="loginForm.username">
-        <Icon type="ios-person-outline" slot="prepend" ></Icon>
+      <Icon type="ios-person-outline" slot="prepend" ></Icon>
       </Input>
     </FormItem>
     <FormItem prop="password">
       <Input type="password" v-model="loginForm.password">
-        <Icon type="ios-locked-outline" slot="prepend" ></Icon>
+      <Icon type="ios-locked-outline" slot="prepend" ></Icon>
       </Input>
     </FormItem>
     <FormItem>
@@ -16,12 +16,9 @@
   </Form>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue';
-  import Component from 'vue-class-component';
-
-  @Component
-  export default class Singin extends Vue{
+<script>
+  export default {
+    name: 'login',
     data() {
       return {
         loginForm: {
@@ -37,20 +34,22 @@
           ]
         }
       };
-    }
-    handleSubmit(name:string):void {
-      this.$refs[name].validate((valid) => {
-        if (valid) {
-          this.$store.dispatch('singin', this.loginForm).then(
-            () => {
-              this.$router.push({ path: '/dashboard' });
-            },
-            (res) => {
-              this.$Message.error(`${res}登录失败，请检测用户名或密码`);
-            }
-          );
-        }
-      });
+    },
+    methods: {
+      handleSubmit(name) {
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            this.$store.dispatch('singin', this.loginForm).then(
+              () => {
+                this.$router.push({ path: '/dashboard' });
+              },
+              (res) => {
+                this.$Message.error(`${res}登录失败，请检测用户名或密码`);
+              }
+            );
+          }
+        });
+      }
     }
   };
 </script>
